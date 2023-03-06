@@ -142,3 +142,26 @@ function uploadFile(ee){
     }
     inp.click();
 }
+
+// for file save
+function saveFile1(ee){
+    let req = new XMLHttpRequest();
+    req.open('get','/savefile');
+    req.setRequestHeader('Content-type','application/json;charset=UTF-8');
+    req.send(JSON.stringify({'fileData':mainText.value}));
+    console.log(req.responseText);
+}
+
+async function  saveFile(ee){
+    let req = await fetch('/savefile',{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({fileData:mainText.value})
+      });
+      let res = await req.json();
+      console.log(res);
+      
+}

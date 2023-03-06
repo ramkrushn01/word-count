@@ -29,15 +29,14 @@
 
 
         <Span>
-            <img class="icon-10 bdrround" src="{% static 'icon/save.svg' %}" alt="save">
+            <img class="icon-10 bdrround" src="{% static 'icon/save.svg' %}" alt="save" onClick="saveFile(this)">
             <p class="only-member">Save</p>
         </Span>
 
-        {% comment %} <input type="file" name="file" id="file"> {% endcomment %}
-        <span>
+        {% comment %} <span>
             <img class="icon-10 bdrround" src="{% static 'icon/auto-save.svg' %}" alt="auto-save">
             <p class="only-member">Auto save</p>
-        </span>
+        </span> {% endcomment %}
 
         <span>
             <img class="icon-10 bdrround" src="{% static 'icon/download.svg' %}" alt="download" onClick="downloadFile(this)">

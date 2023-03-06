@@ -10,5 +10,6 @@ urlpatterns = [
     path('logout',views.logoutUser,name='logout'),
     path('signup',views.signUpUser,name='signup'),
     path('history',views.textHistory,name='history'),
+    path('savefile',views.saveFile,name='savefile'),
     path('forgotpassword',views.forgotPassword,name='forgotpassword'),
 ]

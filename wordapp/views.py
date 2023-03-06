@@ -1,8 +1,11 @@
 from django.shortcuts import render,HttpResponse,redirect
+from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.core.exceptions import *
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 from wordapp.models import Contact
 # Create your views here.
@@ -127,3 +130,15 @@ def forgotPassword(request):
             messages.error(request,"Internal server error !")
         
     return render(request,'forgotpassword.html')
+
+
+# for api
+@csrf_exempt
+def saveFile(request):
+    infoDist = userIsKnown(request)
+    if request.method == "POST":
+        infoDist['data'] = json.loads(request.body.decode('utf-8'))['fileData']
+        print(infoDist)
+        return JsonResponse(infoDist)
+    
+    return JsonResponse(userIsKnown(request))
