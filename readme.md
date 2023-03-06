@@ -4,7 +4,7 @@ Welcome to WordCount website
 <p> by using following command: </p>
 <code> create database wordcount; </code>
 
-<h1>For mysql database connection make changes on DEFAULT DATABASE </h1>
+<h1>For mysql database connection make changes on DEFAULT DATABASE in setting.py </h1>
 <code>
     'default': {
         'ENGINE': 'django.db.backends.mysql',
