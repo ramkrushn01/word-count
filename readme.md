@@ -5,7 +5,7 @@ Welcome to WordCount website
 <code> create database wordcount; </code>
 
 <h1>For mysql database connection make changes on DEFAULT DATABASE </h1>
-'
+<code>
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'wordcount',
@@ -14,6 +14,6 @@ Welcome to WordCount website
         'HOST': 'localhost',
         'PORT': '3306',
     }
-'
+</code>
 
 <p>According to your local setup</p>
