@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block title %}Membership{% endblock title %}
+{% block css_block %}
+ <link rel="stylesheet" href=" {% static 'css/membership.css' %} "> 
+ {% endblock css_block %}
+
+ {% block body %}
+ 
+ <div class="container mary-2 min-h-100">
+    <h1 class="textCen">MEMBERSHIP</h1>
+    <div class="mainMember">
+        <div class="div-1">
+            <h1 class='textCen'> &#8377; 49/<span>month</span> </h1><p></p>
+            <hr class="hr-normal">
+
+            <ul>
+                <li>Upload the <b> 250 text file </b> per month</li>
+                <li>Auto save enable</li>
+                <li>Save enable</li>
+                <li>Download <b> 250 text file </b> per month </li>
+            </ul>
+            <button class="btn-sec bdrround">GET NOW</button>
+
+        </div>
+
+        <div class="div-1">
+            <h1 class='textCen' > &#8377; 99/<span>month</span></h1>
+            <hr class="hr-normal">
+
+            <ul>
+                <li>Upload the <b> 500 text file </b> per month</li>
+                <li>Auto save enable</li>
+                <li>Save enable</li>
+                <li>Download <b> 500 text file </b> per month </li>
+            </ul>
+            <button class="btn-sec bdrround">GET NOW</button>
+        </div>
+
+        <div class="div-1">
+            <h1 class='textCen' > &#8377; 149/<span>month</span></h1>
+            <hr class="hr-normal">
+                <ul>
+                    <li>Upload <b> UNLIMITATED text file </b> per month</li>
+                    <li>Auto save enable</li>
+                    <li>Save enable</li>
+                    <li>Download <b> UNLIMITATED text file </b> per month </li>
+                </ul>
+                <button class="btn-sec bdrround">GET NOW</button>
+            </div>
+
+    </div>
+ </div>
+ 
+ {% endblock body %}

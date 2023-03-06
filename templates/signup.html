@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sign up{% endblock title %}
+
+{% block css_block %} <link rel="stylesheet" href=" {% static 'css/signup.css' %}"> {% endblock css_block %}
+
+
+{% block body %}
+<div class="container login-container">
+    
+    <form class="loginDiv mary-2" action="signup" method="POST">
+        {% csrf_token %}
+        <span class="loginIcon">
+            <img class="icon-12" src="{% static 'icon/signup.svg' %}" alt="login-icon">
+            <h3>Sign up</h3>
+        </span>
+
+        <hr class="hr-normal mary-1">
+
+        {% comment %} <form action="/login"> {% endcomment %}
+            <label for="name">Enter your name</label><br>
+            <input type="text" placeholder="Enter your name" name="name" required autofocus><br>
+
+            <label for="surname">Enter your surname</label><br>
+            <input type="text" placeholder="Enter your surname" name="surname" required><br>
+
+            <label for="email">Enter your email</label><br>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required><br>
+
+            <label for="passw">Enter your password</label><br>
+            <input type="password" id="passw" name="password" placeholder="Enter your password" required><br>
+
+            <label for="re-passw">Renter your password</label><br>
+            <input type="password" id="re-passw" placeholder="Renter your password" onkeyup="checkPassword()"  required><br>
+
+            <button id="smt-btn" class="btn-primary bdrround">Login</button>
+        {% comment %} </form> {% endcomment %}
+
+    </form>
+</div>
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'js/signup.js' %}">Please enable javasript for your browser</script>
+{% endblock js %}

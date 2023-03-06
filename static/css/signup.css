@@ -1,0 +1,35 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+    min-height: 100vh;
+}
+
+.loginDiv {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    padding: 20px;
+    /* height: 60vh; */
+    min-height: fit-content !important;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    /* border: 1px solid black; */
+    box-shadow:  1px 1px 10px black;
+    /* 1px 1px 10px black; */
+}
+
+.loginDiv input{
+    width: 80%;
+    background: none;
+    height: 35px;
+    border-radius: 10px;
+    padding-left:3px ;
+}
+
+.loginIcon {
+    /* margin-top: -180px; */
+    margin-bottom: 50px;
+    text-align: center;
+}

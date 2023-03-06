@@ -1,0 +1,8 @@
+.mainAbout{
+    padding: 20px;
+}
+.mainAbout h1{
+    width: fit-content;
+    border-bottom: 3px solid #00acee;
+    border-radius: 5px;
+}

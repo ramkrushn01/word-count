@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact{% endblock title %}
+
+{% block css_block %} <link rel="stylesheet" href=" {% static 'css/contact.css' %}"> {% endblock css_block %}
+
+{% block body %}
+<div class="container login-container">
+    
+    <form class="loginDiv mary-2" action="contact" method="POST">
+        {% csrf_token %}
+        <span class="loginIcon">
+            <img class="icon-12" src="{% static 'icon/contact.svg' %}" alt="login-icon">
+            <h3>Contact us</h3>
+        </span>
+
+        <hr class="hr-normal mary-1">
+
+        {% comment %} <form action="/login"> {% endcomment %}
+            <label for="email">Enter your email</label><br>
+            <input type="email" id="email" placeholder="Enter your email" name="email" {% if email %}value={{email}} {% else %}autofocus{% endif %} required><br>
+
+            <label for="passw">Enter your name</label><br>
+            <input type="text" id="passw" placeholder="Enter your name" name="name" required {% if email %}value={{name}}{% endif %}><br>
+
+            <label for="message">Enter your message</label><br>
+            <textarea name="message" id="message" cols="30" rows="30" placeholder="Enter your message" required {% if name and email%}autofocus{% endif %}  ></textarea><br>
+
+            <button class="btn-info bdrround">Message</button>
+        {% comment %} </form> {% endcomment %}
+
+    </form>
+</div>
+{% endblock body %}

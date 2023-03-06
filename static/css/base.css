@@ -1,0 +1,316 @@
+@font-face {
+    font-family: "RobotoSlab";
+    src: url("/static/fonts/RobotoSlab-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "CantoraOne";
+    src: url("/static/fonts/CantoraOne-Regular.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "RobotoSlab";
+}
+
+:root {
+    --main-bg: rgba(0, 0, 0, 0.05);
+    --bg-1: #d5f3fe;
+    --primary: #007BFF;
+    --secondary: #6C757D;
+    --info: #17A2B8;
+    --success: #28A745;
+    --warn: #FFC107;
+    --danger: #DC3545;
+    --dark: #343A40;
+    --light: #F8F9FA;
+    --white:#ffffff;
+}
+
+body {
+    background: var(--main-bg);
+    min-height: 100vh;
+}
+/* inheritance classes */
+
+.container {
+    width: 70vw;
+    height: fit-content;
+    /* border: 1px solid black; */
+    margin: auto;
+    background: white;
+}
+
+.bg-main {
+    background: var(--main-bg) !important;
+}
+
+.icon-12 {
+    width: 36px;
+    height: 36px;
+}
+
+.icon-10 {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-8 {
+    width: 24px;
+    height: 24px;
+}
+.hr-normal {
+    height: 1px;
+    width: 100%;
+    background: black;
+}
+
+.hr-bold {
+    height: 2px;
+    background: black;
+}
+
+.padx-2 {
+    padding-inline: 20px;
+}
+
+.pady-2 {
+    padding-block: 20px;
+}
+
+.marx-1 {
+    margin-inline: 10px;
+}
+
+.mary-1 {
+    margin-block: 10px;
+}
+
+.marx-2 {
+    margin-inline: 20px;
+}
+
+.mary-2 {
+    margin-block: 20px;
+}
+
+.only-member {
+    /* color: red; */
+}
+
+.only-member:after {
+    content: "*";
+    color: red;
+}
+
+.bdrround {
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: inset 1px 1px 3px black;
+}
+
+.bdrround:hover {
+    box-shadow: 1px 1px 3px black;
+}
+
+.btn-primary,
+.btn-sec,
+.btn-info,
+.btn-danger,
+.btn-dark {
+    padding: 10px;
+    padding-inline: 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 255, 0.436);
+    color: white;
+    cursor: pointer;
+}
+
+.btn-sec {
+    background: #28a745 !important;
+}
+
+.btn-info {
+    background: #17a2b8 !important;
+}
+
+.btn-danger {
+    background: #dc3545;
+}
+
+.btn-dark {
+    background: #343a40;
+}
+
+.textCen {
+    text-align: center;
+}
+
+.min-h-100 {
+    min-height: 100vh;
+}
+/* for base.html */
+.mainNoti{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    margin-top: 50px;
+}
+
+.notiMessage{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: white;
+    border: 1px solid black;
+    border-right: 10px solid black;
+    border-radius: 10px 0 0 10px;
+    transition: 0.5s;
+    margin-top: 10px;
+    z-index: 100;
+}
+
+.transparent{
+    background: transparent !important;
+}
+
+.notiMessage p{
+    margin-right:20px;
+}
+
+.notiMessage img{
+    cursor: pointer;
+}
+
+
+.info{
+    color:var(--info) !important;
+}
+
+.success{
+    color:var(--success) !important;
+}
+
+.error{
+    color: var(--danger) !important;
+}
+
+.warning{
+    color: var(--warn);
+}
+
+
+nav {
+    display: flex;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    /* min-width: 99vw; */
+}
+
+.navMainItem ul,
+.sideDiv ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    list-style-type: none;
+}
+
+.navMainItem li,
+.sideDiv li {
+    padding-inline: 20px;
+}
+
+li a {
+    text-decoration: none;
+    font-size: larger;
+    font-family: "CantoraOne";
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 100;
+    transition: 0.4s;
+}
+
+li a:hover {
+    color: white;
+}
+
+.active {
+    color: white;
+}
+.sideDiv {
+    align-self: flex-end;
+}
+
+.footer {
+    display: flex;
+    background: black;
+    color: rgba(255, 255, 255, 0.8);
+    padding-inline: 10px;
+    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        height: 10px;
+    }
+
+    .navMainItem ul,
+    .sideDiv ul {
+        flex-direction: column;
+    }
+    .sideDiv {
+        align-self: baseline;
+    }
+
+    .container {
+        width: 97vw;
+    }
+
+    .mainMember {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .div-1 {
+        width: 85% !important;
+    }
+
+    .icon-10 {
+        width: 15px;
+        height: 15px;
+    }
+
+    .wordAction {
+        background-color: black;
+        font-size: small;
+        justify-content: space-between !important;
+    }
+
+    .wordAction span {
+        /* border: 1px solid black; */
+        border-radius: 2px;
+    }
+
+    .wordSocial {
+        justify-content: space-between !important;
+    }
+
+    .loginDiv {
+        width: 100% !important;
+    }
+
+    .loginIcon {
+        margin-bottom: 20px !important;
+    }
+}

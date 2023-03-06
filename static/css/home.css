@@ -1,0 +1,59 @@
+.wordAction {
+    display: flex;
+    background: var(--main-bg);
+    flex-direction: row;
+    justify-content: space-around;
+    padding-inline: 5px;
+    padding-block: 10px;
+    /* border-bottom: 1px solid black; */
+    box-shadow: 0px 7px 12px black;
+}
+
+.wordAction span {
+    border: 1px 0px solid black;
+    text-align: center;
+    padding-block: 3px;
+    cursor: pointer;
+}
+
+.mainText textarea {
+    resize: none;
+    width: 100%;
+    font-size: large;
+    font-weight:normal;
+    padding: 4px;
+}
+
+.wordCountMain {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-block:30px;
+    background: var(--main-bg);
+    text-transform: uppercase;
+    text-align: center;
+    padding-inline: 18px;
+    /* box-shadow: 0px 7px 12px black; */
+    box-shadow: 0px 0px 4px black;
+}
+
+.wordCountMain h3 {
+    padding-block: 10px;
+}
+
+.wordSocial{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-block: 30px;
+    background: var(--main-bg);
+    padding-inline: 18px;
+    text-align: center;
+    background: var(--bg-1);
+    box-shadow: 0px 0px 4px black;
+}
+
+.socialCount{
+    color: rgba(0, 0, 0, 0.7);
+    font-size: smaller;
+}

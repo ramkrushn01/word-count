@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block title %}Home{% endblock title %}
+{% block css_block %}
+ <link rel="stylesheet" href=" {% static 'css/home.css' %} "> 
+ {% endblock css_block %}
+
+ {% block body %}
+
+
+ <div class="container mary-1">
+    <div class="wordAction">
+        <span>
+            <img class="icon-10 bdrround" src="{% static 'icon/text-case.svg' %}" alt="text-case">
+            <p>&nbsp;</p>
+            <select onchange="setCase(this)"   id="sCase">
+                <option value="Case">Case</option>
+                <option value="sc">Sentace case</option>
+                <option value="tc">Title Case</option>
+                <option value="uc">UPPERCASE</option>
+                <option value="lc">lowecase</option>
+            </select>
+        </span>
+
+        <span>
+            <img class="icon-10 bdrround" src="{% static 'icon/upload.svg' %}" alt="upload" onClick="uploadFile(this)">
+            <p class="only-member">Upload</p>
+        </span>
+
+
+        <Span>
+            <img class="icon-10 bdrround" src="{% static 'icon/save.svg' %}" alt="save">
+            <p class="only-member">Save</p>
+        </Span>
+
+        {% comment %} <input type="file" name="file" id="file"> {% endcomment %}
+        <span>
+            <img class="icon-10 bdrround" src="{% static 'icon/auto-save.svg' %}" alt="auto-save">
+            <p class="only-member">Auto save</p>
+        </span>
+
+        <span>
+            <img class="icon-10 bdrround" src="{% static 'icon/download.svg' %}" alt="download" onClick="downloadFile(this)">
+            <p class="only-member">Downlaod</p>
+        </span>
+
+        <span>
+            <img class="icon-10 bdrround" src="{% static 'icon/clear.svg' %}" alt="clear" onClick="clearMainText()">
+            <p>Clear</p>
+        </span>
+
+        <span>
+            <img class="icon-10 bdrround" id="cpText" src="{% static 'icon/copy.svg' %}" alt="copy" onClick="copyToClip()">
+            <p>Copy</p>
+        </span>
+
+    </div>
+    
+    <hr class="hr-normal">
+
+    <div class="mainText pady-2">
+        <textarea autofocus name="mainText" id="mainText" rows="15" placeholder="Start Typing..." onkeyup="typeStart(this,event)"></textarea>
+    </div>
+
+    <div class="wordCountMain">
+        <span>
+            <h3>Total Word</h3>
+            <h3 id="totalWord">0</h3>
+        </span>
+
+        <span>
+            <h3>Total Characters</h3>
+            <h3 id="totalChar">0</h3>
+        </span>
+
+        <span>
+            <h3>Without White Space</h3>
+            <h3 id="withOutSpace">0</h3>
+
+        </span>
+
+
+    </div>
+    <hr class="hr-normal">
+
+    <div class="wordSocial">
+        <span>
+            <img class="icon-12" src="{% static 'icon/google.svg' %}" alt="twitter">
+            <h4>Google</h4>
+            <h4> <span id="googleId">300</span>/<span class="socialCount">300</span></h4>
+            
+        </span>
+
+        <span>
+            <img class="icon-12" src="{% static 'icon/twitter.svg' %}" alt="twitter">
+            <h4>Twitter</h4>
+            <h4> <span id="twitterId">280</span> /<span class="socialCount">280</span></h4>
+
+        </span>
+
+        <span>
+            <img class="icon-12" src="{% static 'icon/facebook.svg' %}" alt="twitter">
+            <h4>Facebook</h4>
+            <h4> <span id="facebookId">250</span>/<span class="socialCount">250</span></h4>
+
+        </span>
+
+    </div>
+    {% comment %} <hr class="hr-normal"> {% endcomment %}
+ </div>
+
+{% endblock body %}
+
+{% block js %}
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock js %}
