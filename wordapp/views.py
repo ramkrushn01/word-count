@@ -5,26 +5,65 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.core.exceptions import *
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 import json
+from wordapp.models import Contact,Membership,Savefile
 
-from wordapp.models import Contact
 # Create your views here.
 def userIsKnown(request):
     infoDist = dict()
     if request.user.is_anonymous:
-        infoDist = {"user":False}
+        infoDist['user'] = False
         return infoDist
     else:
-        infoDist = {"user":True}
+        infoDist['user'] = True
+        infoDist['username'] = request.user.username
+
         return infoDist
+
+def getPlanDetails(request):
+    infoDist = userIsKnown(request)
+    planDetails = dict()
+    if  infoDist['user'] and Membership.objects.filter(username=infoDist['username']):
+        getPlan = Membership.objects.get(username=userIsKnown(request)['username'])
+        planDetails['isMember'] = True
+        planDetails['plan_name'] = getPlan.plan_name
+        planDetails['total_file_remaining'] = getPlan.total_file_remaining
+        planDetails['old_file_number'] = getPlan.old_file_number
+        planDetails['join_date'] = getPlan.join_date
+        planDetails['expiry_date'] = getPlan.expiry_date
+    else:
+        planDetails['isMember'] = False
+
+    return planDetails
 
 def home(request):
     infoDist = userIsKnown(request)
-    infoDist['username'] = request.user
+    infoDist.update(getPlanDetails(request)) 
     return render(request,'home.html',infoDist)
 
 def membership(request):
-    return render(request,'membership.html',userIsKnown(request))
+    infoDist = userIsKnown(request)
+    planDetails = getPlanDetails(request)
+    infoDist.update(planDetails)
+    if request.GET.get('plan'):
+        plan = int(request.GET.get('plan'))
+        if not planDetails['isMember']:
+            if plan == 49:
+                total_remaining_file = 250
+            elif plan == 99:
+                total_remaining_file = 500
+            else:
+                total_remaining_file = -1
+            getMembership = Membership(username = infoDist['username'],plan_name=plan,total_file_remaining=total_remaining_file)
+            getMembership.save()
+            messages.success(request,'Congratulations🥳 our plane is ready now!')
+            return redirect('/')
+        else:
+            messages.error(request,'Your Plane is not expire!')
+            return redirect('/membership')
+        
+    return render(request,'membership.html',infoDist)
 
 def contact(request):
     infoDist = userIsKnown(request)
@@ -67,13 +106,16 @@ def signUpUser(request):
             user.last_name = surname
             user.save()
             messages.success(request,"Create user successfully!")
-            return redirect('/')
+            return redirect('/login')
         except Exception as ee:
             print(str(ee))
             if "Duplicate entry" in str(ee):
                 messages.error(request,"User already exist goto login page !")
             else:
                 messages.error(request,"Internal server error")
+    if userIsKnown(request)['user']:
+        messages.success(request,'You are already login please logout and try again')
+        return redirect('/')
 
     return render(request,'signup.html',userIsKnown(request))
 
@@ -93,6 +135,9 @@ def loginUser(request):
         except Exception as ee:
             print(ee)
             messages.error(request,"Internal server error")
+    if userIsKnown(request)['user']:
+        messages.success(request,'You are already login')
+        return redirect('/')
 
     return render(request,'login.html',userIsKnown(request))
 
@@ -136,9 +181,30 @@ def forgotPassword(request):
 @csrf_exempt
 def saveFile(request):
     infoDist = userIsKnown(request)
+    planDetails = getPlanDetails(request) 
     if request.method == "POST":
-        infoDist['data'] = json.loads(request.body.decode('utf-8'))['fileData']
-        print(infoDist)
-        return JsonResponse(infoDist)
+        if planDetails['isMember']:
+            POST_Data = json.loads(request.body.decode('utf-8'))
+            username = infoDist['username']
+            fileContent = POST_Data['fileData']
+            fileNumber = POST_Data['fileNumber']
+            print(fileNumber,fileContent)
+            if Savefile.objects.filter(username=username,file_number=fileNumber):
+                filesave = Savefile.objects.get(username=username,file_number=fileNumber)
+                filesave.file_content = fileContent
+                filesave.date = timezone.now()
+                filesave.time = timezone.now()
+                filesave.save()
+            else:
+                filesave = Savefile(username=username,file_content=fileContent,file_number=fileNumber)
+                filesave.save()
+
+            return JsonResponse({'success':True,'reason':'Text save successfully!','file_number':filesave.file_number})
+
+        else:
+            return JsonResponse({'success':False,'reason':'Please get membership first and try again!'})
+
+    if request.GET.get('update-file') == 'true':
+        pass
     
-    return JsonResponse(userIsKnown(request))
+    return JsonResponse({'ram':'ram'})

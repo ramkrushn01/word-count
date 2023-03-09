@@ -6,7 +6,7 @@
  {% endblock css_block %}
 
  {% block body %}
- 
+
  <div class="container mary-2 min-h-100">
     <h1 class="textCen">MEMBERSHIP</h1>
     <div class="mainMember">
@@ -20,7 +20,7 @@
                 <li>Save enable</li>
                 <li>Download <b> 250 text file </b> per month </li>
             </ul>
-            <button class="btn-sec bdrround">GET NOW</button>
+            <button class="btn-sec bdrround"><a href="{% if user %} /membership?plan=49 {% else %} /login {% endif %}">GET NOW</a></button>
 
         </div>
 
@@ -34,7 +34,7 @@
                 <li>Save enable</li>
                 <li>Download <b> 500 text file </b> per month </li>
             </ul>
-            <button class="btn-sec bdrround">GET NOW</button>
+            <button class="btn-sec bdrround"><a href="{% if user %} /membership?plan=99 {% else %} /login {% endif %}">GET NOW</a></button>
         </div>
 
         <div class="div-1">
@@ -46,10 +46,39 @@
                     <li>Save enable</li>
                     <li>Download <b> UNLIMITATED text file </b> per month </li>
                 </ul>
-                <button class="btn-sec bdrround">GET NOW</button>
+                <button class="btn-sec bdrround"><a href="{% if user %} /membership?plan=149 {% else %} /login {% endif %}">GET NOW</a></button>
             </div>
-
     </div>
+    {% if isMember %}
+    <div class="plan_details mary-1">
+        <table name="Plan Details">
+            <tr>
+                <td>Username: </td>
+                <td>{{username}}</td>
+            </tr>
+            <tr>
+                <td>Plan Name: </td>
+                <td>{{plan_name}}</td>
+            </tr>
+            <tr>
+                <td>Total File Remaining: </td>
+                <td>{% if total_file_remaining == -1 %} Infinite {% else %} {{total_file_remaining}}  {% endif %}</td>
+            </tr>
+
+            <tr>
+                <td>Join Date: </td>
+                <td>{{join_date}}</td>
+            </tr>
+
+            <tr>
+                <td>Expiry Date: </td>
+                <td>{{expiry_date}}</td>
+            </tr>
+            
+        </table>
+        
+    </div>
+    {% endif %}
  </div>
  
  {% endblock body %}

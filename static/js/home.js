@@ -22,36 +22,40 @@ function toTitleCase(str) {
     str = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     for (let i = 1; i < str.length; i++) {
         if (str[i - 1] === " ") {
-            str = str.slice(0,i) + str.charAt(i).toUpperCase() + str.slice(i+1).toLowerCase();
+            str =
+                str.slice(0, i) +
+                str.charAt(i).toUpperCase() +
+                str.slice(i + 1).toLowerCase();
         }
     }
     return str;
 }
 
 // for sentence case
-function toSentenceCase(str){
+function toSentenceCase(str) {
     str = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    for(let i = 1; i < str.length-2; i++){
-        if(str[i] === " " && str[i-1] === "."){
-            str = str.slice(0,i) + str.charAt(i+1).toUpperCase() + str.slice(i+2).toLowerCase();
+    for (let i = 1; i < str.length - 2; i++) {
+        if (str[i] === " " && str[i - 1] === ".") {
+            str =
+                str.slice(0, i) +
+                str.charAt(i + 1).toUpperCase() +
+                str.slice(i + 2).toLowerCase();
         }
     }
     return str;
 }
 
-
-
 // for clear the main text area
-function clearMainText(){
+function clearMainText() {
     mainText.value = "";
-    typeStart(0,0);
-    localStorage.setItem("mainText",mainText.value);
+    typeStart(0);
+    localStorage.setItem("mainText", mainText.value);
 }
 
 // for coping the main text
-function copyToClip(){
+function copyToClip() {
     navigator.clipboard.writeText(mainText.value);
-    cpText.src = "/static/icon/copy-done.svg"
+    cpText.src = "/static/icon/copy-done.svg";
     changeMainTextImg = true;
 }
 
@@ -77,11 +81,11 @@ function setCase(ee) {
             mainText.value = text.toLowerCase();
             break;
     }
-    localStorage.setItem("mainText",mainText.value);
+    localStorage.setItem("mainText", mainText.value);
 }
 
-// change the word char 
-function typeStart(ee, event) {
+// change the word char
+function typeStart(event) {
     if (event.keyCode !== 32) {
         totalWord.innerText = mainText.value.split(" ").length;
     }
@@ -97,26 +101,26 @@ function typeStart(ee, event) {
     googleId.innerText = 300 - totalCharIs;
     twitterId.innerText = 280 - totalCharIs;
     facebookId.innerText = 250 - totalCharIs;
-    if(changeMainTextImg){
+    if (changeMainTextImg) {
         cpText.src = "/static/icon/copy.svg";
         changeMainTextImg = false;
     }
 
-    if(changeMainTextCase){
+    if (changeMainTextCase) {
         sCase.value = "Case";
         changeMainTextCase = false;
     }
 
-    localStorage.setItem("mainText",mainText.value);
+    localStorage.setItem("mainText", mainText.value);
 }
 
 // for download text
-function downloadFile(ee){
-    let a = document.createElement('a');
+function downloadFile(ee) {
+    let a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "display:none";
 
-    let fromBlob = new Blob([mainText.value],{type:"text/plain"});
+    let fromBlob = new Blob([mainText.value], { type: "text/plain" });
     let downUrl = window.URL.createObjectURL(fromBlob);
     a.href = downUrl;
     a.download = "wordCount.txt";
@@ -125,43 +129,55 @@ function downloadFile(ee){
 }
 
 // for text file upload
-function uploadFile(ee){
-    let inp = document.createElement('input');
+function uploadFile(ee) {
+    let inp = document.createElement("input");
     inp.type = "file";
     inp.accept = "text/plain";
     inp.style = "display:none";
-    inp.onchange = ()=>{
+    inp.onchange = () => {
         file = inp.files[0];
-        if(file){
+        if (file) {
             let reader = new FileReader();
-            reader.readAsText(file,"UTF-8");
-            reader.onload = (evt)=>{
+            reader.readAsText(file, "UTF-8");
+            reader.onload = (evt) => {
                 mainText.value = evt.target.result;
-            }
+                typeStart(0);
+            };
         }
-    }
+    };
     inp.click();
 }
 
 // for file save
-function saveFile1(ee){
-    let req = new XMLHttpRequest();
-    req.open('get','/savefile');
-    req.setRequestHeader('Content-type','application/json;charset=UTF-8');
-    req.send(JSON.stringify({'fileData':mainText.value}));
-    console.log(req.responseText);
+
+async function saveFile(ee) {
+    let req = await fetch("/savefile", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileData: mainText.value,fileNumber:parseInt(fileNumber.value)}),
+    });
+    let res = await req.json();
+    if (res.success) {
+        showNotiMessage("success", res.reason);
+        fileNumber.value = res.file_number;
+    } else {
+        showNotiMessage("error", res.reason);
+    }
 }
 
-async function  saveFile(ee){
-    let req = await fetch('/savefile',{
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({fileData:mainText.value})
-      });
-      let res = await req.json();
-      console.log(res);
-      
+async function newFile(ee){
+    let req = await fetch(`/savefile?update-file=true&&current-file=${parseInt(fileNumber.value)}`)
+    // let req = await fetch(`/savefile`)
+    let res = await req.json();
+    console.log(res)
+    if(res.success){
+        showNotiMessage('success',res.reason);
+        fileNumber.value = res.fileNumber;
+    }else{
+        showNotiMessage('error',res.reason)
+    }
 }
+typeStart(0);

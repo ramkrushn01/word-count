@@ -7,8 +7,9 @@
 
  {% block body %}
 
-
+ 
  <div class="container mary-1">
+    <input type="hidden" value="{{old_file_number}}" id="fileNumber">
     <div class="wordAction">
         <span>
             <img class="icon-10 bdrround" src="{% static 'icon/text-case.svg' %}" alt="text-case">
@@ -23,6 +24,11 @@
         </span>
 
         <span>
+            <img class="icon-10 bdrround" src="{% static 'icon/new-file.svg' %}" alt="auto-save" onClick="newFile(this)">
+            <p class="only-member">New file</p>
+        </span>
+
+        <span>
             <img class="icon-10 bdrround" src="{% static 'icon/upload.svg' %}" alt="upload" onClick="uploadFile(this)">
             <p class="only-member">Upload</p>
         </span>
@@ -32,11 +38,6 @@
             <img class="icon-10 bdrround" src="{% static 'icon/save.svg' %}" alt="save" onClick="saveFile(this)">
             <p class="only-member">Save</p>
         </Span>
-
-        {% comment %} <span>
-            <img class="icon-10 bdrround" src="{% static 'icon/auto-save.svg' %}" alt="auto-save">
-            <p class="only-member">Auto save</p>
-        </span> {% endcomment %}
 
         <span>
             <img class="icon-10 bdrround" src="{% static 'icon/download.svg' %}" alt="download" onClick="downloadFile(this)">
@@ -58,7 +59,7 @@
     <hr class="hr-normal">
 
     <div class="mainText pady-2">
-        <textarea autofocus name="mainText" id="mainText" rows="15" placeholder="Start Typing..." onkeyup="typeStart(this,event)"></textarea>
+        <textarea autofocus name="mainText" id="mainText" rows="15" placeholder="Start Typing..." onkeyup="typeStart(event)"></textarea>
     </div>
 
     <div class="wordCountMain">
