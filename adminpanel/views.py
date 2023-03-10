@@ -85,7 +85,6 @@ def index(request):
             qType = [fieldDist.get(i.get_internal_type())
                      for i in modelDist.get(tableName)._meta.fields]
             qFinal = dict()
-            print(modelDist.get(tableName)._meta.fields[-1].get_internal_type())
             i = 0
             for key,values in dict(qValues[0]).items():
                 if key == 'time':
