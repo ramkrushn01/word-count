@@ -9,7 +9,7 @@
 
  
  <div class="container mary-1">
-    <input type="hidden" value="{{old_file_number}}" id="fileNumber">
+    <input type="hidden" value="{% if not fileNumber %}1 {% else %} {{fileNumber}}  {% endif %} " id="fileNumber">
     <div class="wordAction">
         <span>
             <img class="icon-10 bdrround" src="{% static 'icon/text-case.svg' %}" alt="text-case">
@@ -24,29 +24,24 @@
         </span>
 
         <span>
-            <img class="icon-10 bdrround" src="{% static 'icon/new-file.svg' %}" alt="auto-save" onClick="newFile(this)">
+            <img class="icon-10 bdrround" src="{% static 'icon/new-file.svg' %}" alt="auto-save" onClick="{% if isMember %}newFile(this) {% else %} showNotiMessage('error','Get membership and try again!') {% endif %}">
             <p class="only-member">New file</p>
         </span>
 
         <span>
-            <img class="icon-10 bdrround" src="{% static 'icon/upload.svg' %}" alt="upload" onClick="uploadFile(this)">
+            <img class="icon-10 bdrround" src="{% static 'icon/upload.svg' %}" alt="upload" onClick="{% if isMember %}uploadFile(this) {% else %} showNotiMessage('error','Get membership and try again!') {% endif %}">
             <p class="only-member">Upload</p>
         </span>
 
 
         <Span>
-            <img class="icon-10 bdrround" src="{% static 'icon/save.svg' %}" alt="save" onClick="saveFile(this)">
+            <img class="icon-10 bdrround" src="{% static 'icon/save.svg' %}" alt="save" onClick="{% if isMember %}  saveFile(this) {% else %} showNotiMessage('error','Get membership and try again!') {% endif %}">
             <p class="only-member">Save</p>
         </Span>
 
         <span>
-            <img class="icon-10 bdrround" src="{% static 'icon/download.svg' %}" alt="download" onClick="downloadFile(this)">
+            <img class="icon-10 bdrround" src="{% static 'icon/download.svg' %}" alt="download" onClick="{% if isMember %}downloadFile(this) {% else %} showNotiMessage('error','Get membership and try again!') {% endif %}">
             <p class="only-member">Downlaod</p>
-        </span>
-
-        <span>
-            <img class="icon-10 bdrround" src="{% static 'icon/clear.svg' %}" alt="clear" onClick="clearMainText()">
-            <p>Clear</p>
         </span>
 
         <span>
@@ -54,12 +49,18 @@
             <p>Copy</p>
         </span>
 
+        <span>
+            <img class="icon-10 bdrround" src="{% static 'icon/clear.svg' %}" alt="clear" onClick="clearMainText()">
+            <p>Clear</p>
+        </span>
+
+
     </div>
     
     <hr class="hr-normal">
 
     <div class="mainText pady-2">
-        <textarea autofocus name="mainText" id="mainText" rows="15" placeholder="Start Typing..." onkeyup="typeStart(event)"></textarea>
+        <textarea autofocus  name="mainText" id="mainText" rows="15" placeholder="Start Typing..." onkeyup="typeStart(event)">{{fileContent}}</textarea>
     </div>
 
     <div class="wordCountMain">

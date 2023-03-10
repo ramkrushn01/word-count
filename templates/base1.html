@@ -1,0 +1,69 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block css_block %}{% endblock css_block %}
+    <title>{% block title %}
+        {% endblock title %} | Word Count</title>
+    <script async src="{% static 'js/base.js' %}"></script>
+    
+</head>
+<body>
+    <div class="mainNoti" id="notiMessage">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="notiMessage {{message.tags}}">
+                    <p>{{message}} </p>
+                    <img class="icon-10" src="{% static 'icon/delete.svg' %}" alt="delete" onclick="deleteNoti(this)">
+                </div>
+            {% endfor %}
+
+        </div>
+    {% endif %}
+</div>
+    
+    <nav>
+        <div class="navMainItem">
+            <ul>
+                <li><a id="home" href="/">Home</a></li>
+                <li><a href="/membership">Membership</a></li>
+                <li><a id="contact" href="/contact">Contact us</a></li>
+                <li><a href="/about">About</a></li>
+                {% if user %}
+                    <li><a href="/history">History</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="sideDiv">
+            <ul>
+                {% if user %}
+                    <li><a href="#">{{username}}</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/signup">Sign up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav> 
+
+    {% block body %}
+    
+    {% endblock body %}
+
+    <footer class="footer">
+        <p>Copyright &copy; 2023 wordcount.com</p>
+        <span>
+            
+            <a href=""> <img class="icon-8" src="{% static 'icon/insta-footer.svg' %}" alt="insta-footer"> </a>
+            <a href=""> <img class="icon-8" src="{% static 'icon/facebook-footer.svg' %}" alt="insta-footer"> </a>
+            <a href=""> <img class="icon-8" src="{% static 'icon/twitter-footer.svg' %}" alt="insta-footer"> </a>
+        </span>
+
+    </footer>
+</body>
+{% block js %}{% endblock js %}
+</html>

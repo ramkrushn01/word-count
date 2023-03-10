@@ -1,0 +1,24 @@
+.mainDiv{
+    box-shadow: 1px 1px 10px black;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.date-time{
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.file-content{
+    margin-block: 10px;
+}
+
+.actionDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-decoration: none;
+    color:var(--info)
+}
+.mainDiv a:hover{
+    color: blue;
+}

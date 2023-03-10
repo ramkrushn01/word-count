@@ -6,7 +6,18 @@
  {% endblock css_block %}
 
  {% block body %}
- <div class="container min-h-100 transparent">
+ <div class="container min-h-100 transparent mary-2">
+    {% for item in getData %}
+        <div class="mainDiv">
+            <p class="date-time">{{item.file_number}} | {{item.date}} {{item.time}}</p>
+            <p class="file-content">{{item.file_content|slice:':250'}}{% if item.file_content|length > 250 %}.....{% endif %}</p>
+            <div class="actionDiv">
+                <a href="/?file-number={{item.file_number}}">Edit</a>
+                <a href="/history?delete={{item.file_number}}"><img class="icon-10" src="{% static 'icon/delete.svg' %}" alt="delete" onclick="deleteNoti(this)"></a>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
     
 
  </div>

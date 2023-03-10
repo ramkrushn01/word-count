@@ -16,7 +16,7 @@
 
             <ul>
                 <li>Upload the <b> 250 text file </b> per month</li>
-                <li>Auto save enable</li>
+                <li>Show file history</li>
                 <li>Save enable</li>
                 <li>Download <b> 250 text file </b> per month </li>
             </ul>
@@ -30,7 +30,7 @@
 
             <ul>
                 <li>Upload the <b> 500 text file </b> per month</li>
-                <li>Auto save enable</li>
+                <li>Show file history</li>
                 <li>Save enable</li>
                 <li>Download <b> 500 text file </b> per month </li>
             </ul>
@@ -41,10 +41,10 @@
             <h1 class='textCen' > &#8377; 149/<span>month</span></h1>
             <hr class="hr-normal">
                 <ul>
-                    <li>Upload <b> UNLIMITATED text file </b> per month</li>
-                    <li>Auto save enable</li>
+                    <li>Upload <b> 1000 text file </b> per month</li>
+                    <li>Show file history</li>
                     <li>Save enable</li>
-                    <li>Download <b> UNLIMITATED text file </b> per month </li>
+                    <li>Download <b> 1000 text file </b> per month </li>
                 </ul>
                 <button class="btn-sec bdrround"><a href="{% if user %} /membership?plan=149 {% else %} /login {% endif %}">GET NOW</a></button>
             </div>
@@ -62,7 +62,17 @@
             </tr>
             <tr>
                 <td>Total File Remaining: </td>
-                <td>{% if total_file_remaining == -1 %} Infinite {% else %} {{total_file_remaining}}  {% endif %}</td>
+                <td>{{total_file_remaining}}</td>
+            </tr>
+
+            <tr>
+                <td>Uplaod File Remaining: </td>
+                <td>{{upload_file}}</td>
+            </tr>
+
+            <tr>
+                <td>Download File Remaining: </td>
+                <td>{{download_file}}</td>
             </tr>
 
             <tr>

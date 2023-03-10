@@ -28,7 +28,9 @@ class Membership(models.Model):
     username = models.CharField(max_length=30,default=None,unique=True,primary_key=True)
     plan_name = models.CharField(max_length=30,default=None)
     total_file_remaining = models.IntegerField(default=0)
-    old_file_number = models.IntegerField(default=0)
+    download_file = models.IntegerField(default=1)
+    upload_file = models.IntegerField(default=1)
+    old_file_number = models.IntegerField(default=1)
     join_date = models.DateField(default=timezone.now)
     expiry_date = models.DateField(default=timezone.now() + timedelta(days=30))
 

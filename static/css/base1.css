@@ -17,15 +17,15 @@
 :root {
     --main-bg: rgba(0, 0, 0, 0.05);
     --bg-1: #d5f3fe;
-    --primary: #007bff;
-    --secondary: #6c757d;
-    --info: #17a2b8;
-    --success: #28a745;
-    --warn: #ffc107;
-    --danger: #dc3545;
-    --dark: #343a40;
-    --light: #f8f9fa;
-    --white: #ffffff;
+    --primary: #007BFF;
+    --secondary: #6C757D;
+    --info: #17A2B8;
+    --success: #28A745;
+    --warn: #FFC107;
+    --danger: #DC3545;
+    --dark: #343A40;
+    --light: #F8F9FA;
+    --white:#ffffff;
 }
 
 body {
@@ -152,98 +152,6 @@ body {
     min-height: 100vh;
 }
 
-/* nav bar base.css */
-
-nav {
-    position: fixed;
-    width: 98vw;
-    top: 0;
-    z-index: 60;
-    background: rgb(33 37 41);
-    background: black;
-    padding: 10px;
-    /* background: rgba(0, 128, 0, 0); */
-    display: flex;
-    min-height: 25px;
-    height: fit-content;
-    /* box-shadow: 2px 2px 2px white; */
-}
-
-.title {
-    display: flex;
-    color: white;
-    margin-right: 20px;
-    /* width: 100%; */
-    height: fit-content;
-    cursor: pointer;
-    margin-left: 5rem;
-}
-
-.title img {
-    width: 50px;
-}
-
-.bar {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    /* padding-inline: 10px; */
-    border-radius: 5px;
-    color: white;
-    font-size: 2.5rem;
-    visibility: hidden;
-    margin-right: 10px;
-    cursor: pointer;
-    width: 20px;
-    font-stretch: extra-expanded;
-}
-
-.navul {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* transition: 1s; */
-    margin: 0;
-}
-
-.navli {
-    list-style: none;
-    margin-right: 2rem;
-    font-size: large;
-    width: 100%;
-}
-
-nav a {
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-a:hover {
-    color: white;
-}
-
-.login {
-    position: absolute;
-    width: fit-content;
-    right: 0;
-}
-
-.login * {
-    margin-right: 10px;
-}
-
-.active {
-    color: white !important;
-}
-
-.temp{
-    width: 98vw;
-    height: 40px;
-}
-
-/* for notification */
-
-
 /* for base.html */
 .mainNoti{
     display: flex;
@@ -297,7 +205,49 @@ a:hover {
 }
 
 
-/* for footer */
+nav {
+    display: flex;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    /* min-width: 99vw; */
+}
+
+.navMainItem ul,
+.sideDiv ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    list-style-type: none;
+}
+
+.navMainItem li,
+.sideDiv li {
+    padding-inline: 20px;
+}
+
+li a {
+    text-decoration: none;
+    font-size: larger;
+    font-family: "CantoraOne";
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 100;
+    transition: 0.4s;
+}
+
+li a:hover {
+    color: white;
+}
+
+.active {
+    color: white;
+}
+.sideDiv {
+    align-self: flex-end;
+}
 
 .footer {
     display: flex;
@@ -310,50 +260,60 @@ a:hover {
     height: 100px;
 }
 
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
     nav {
-        display: block;
-        height: fit-content;
-        min-height: 50px;
-    }
-
-    .title {
-        margin: 0;
-        padding: 0;
-    }
-
-    .title img {
-        margin-left: 0;
-        left: 0;
-    }
-
-    .bar {
-        visibility: visible;
-    }
-
-    .navul {
+        flex-direction: column;
+        height: 10px;
         display: none;
+    }
+
+    .navMainItem ul,
+    .sideDiv ul {
         flex-direction: column;
-        padding: 0;
+        display: none;
+    }
+    .sideDiv {
+        align-self: baseline;
     }
 
-    .navli {
-        margin-bottom: 0.5rem;
-        /* text-align: center; */
-        font-size: large;
-        margin-right: 0;
+    .container {
+        width: 97vw;
     }
 
-    .login {
-        display: flex;
-        flex-direction: column;
-        position: static;
-        width: 100%;
+    .mainMember {
+        flex-direction: column !important;
+        align-items: center !important;
     }
 
-    .login * {
-        margin-top: 10px;
-        width: fit-content;
-        height: fit-content;
+    .div-1 {
+        width: 85% !important;
+    }
+
+    .icon-10 {
+        width: 15px;
+        height: 15px;
+    }
+
+    .wordAction {
+        background-color: black;
+        font-size: small;
+        justify-content: space-between !important;
+    }
+
+    .wordAction span {
+        /* border: 1px solid black; */
+        border-radius: 2px;
+    }
+
+    .wordSocial {
+        justify-content: space-between !important;
+    }
+
+    .loginDiv {
+        width: 100% !important;
+    }
+
+    .loginIcon {
+        margin-bottom: 20px !important;
     }
 }

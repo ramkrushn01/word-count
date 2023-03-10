@@ -9,7 +9,10 @@ from django.utils import timezone
 import json
 from wordapp.models import Contact,Membership,Savefile
 
-# Create your views here.
+PLAN_A = 250
+PLAN_B = 500
+PLAN_C = 1000
+
 def userIsKnown(request):
     infoDist = dict()
     if request.user.is_anonymous:
@@ -29,6 +32,8 @@ def getPlanDetails(request):
         planDetails['isMember'] = True
         planDetails['plan_name'] = getPlan.plan_name
         planDetails['total_file_remaining'] = getPlan.total_file_remaining
+        planDetails['upload_file'] = getPlan.upload_file
+        planDetails['download_file'] = getPlan.download_file
         planDetails['old_file_number'] = getPlan.old_file_number
         planDetails['join_date'] = getPlan.join_date
         planDetails['expiry_date'] = getPlan.expiry_date
@@ -37,9 +42,18 @@ def getPlanDetails(request):
 
     return planDetails
 
+
+# Create your views here.
 def home(request):
     infoDist = userIsKnown(request)
     infoDist.update(getPlanDetails(request)) 
+    if request.GET.get('file-number'):
+        try:
+            infoDist['fileContent'] = Savefile.objects.get(username=infoDist['username'],file_number=request.GET.get('file-number')).file_content
+            infoDist['fileNumber'] = request.GET.get('file-number')
+        except Exception as ee:
+            print(ee)
+        # print(infoDist['fileContent'])
     return render(request,'home.html',infoDist)
 
 def membership(request):
@@ -54,9 +68,10 @@ def membership(request):
             elif plan == 99:
                 total_remaining_file = 500
             else:
-                total_remaining_file = -1
-            getMembership = Membership(username = infoDist['username'],plan_name=plan,total_file_remaining=total_remaining_file)
+                total_remaining_file = 1000
+            getMembership = Membership(username = infoDist['username'],plan_name=plan,total_file_remaining=total_remaining_file,download_file=total_remaining_file,upload_file=total_remaining_file)
             getMembership.save()
+            Savefile(username=infoDist['username'],file_number=1,file_content='').save()
             messages.success(request,'Congratulations🥳 our plane is ready now!')
             return redirect('/')
         else:
@@ -92,8 +107,27 @@ def about(request):
     return render(request,'about.html',userIsKnown(request))
 
 def textHistory(request):
-    messages.success(request,"This featured available coming soon !")
-    return render(request,'history.html') 
+    infoDist = userIsKnown(request)
+    infoDist.update(getPlanDetails(request))
+    if request.GET.get('delete'):
+        try:
+            Savefile.objects.get(username=infoDist['username'],file_number=request.GET.get('delete')).delete()
+            messages.success(request,'Delete data successfully!')
+        except Exception as ee:
+            print(ee)
+            messages.error(request,'File already delete!')
+
+    if not infoDist['user']:
+        messages.error(request,'Login and try again')
+        return redirect('/login')
+    
+    elif not infoDist['isMember']:
+        messages.error(request,'Get membership and try again')
+        return redirect('/membership')
+    else:
+        fileData = Savefile.objects.filter(username=infoDist['username']).order_by('-date','-time')
+        # print(list(getData.order_by('date'))[0].file_content)
+    return render(request,'history.html',{'getData':list(fileData)}) 
 
 def signUpUser(request):
     if request.method == "POST":
@@ -167,12 +201,12 @@ def forgotPassword(request):
                 messages.success(request,"Password reset successful !")
                 return redirect('/login')
             else:
-                messages.error(request,"Please enter correct username !")
+                messages.error(request,"Please enter correct username!")
                 return redirect('/forgotpassword')
         
         except Exception as ee:
             print(ee.args)
-            messages.error(request,"Internal server error !")
+            messages.error(request,"User not exist!")
         
     return render(request,'forgotpassword.html')
 
@@ -188,7 +222,6 @@ def saveFile(request):
             username = infoDist['username']
             fileContent = POST_Data['fileData']
             fileNumber = POST_Data['fileNumber']
-            print(fileNumber,fileContent)
             if Savefile.objects.filter(username=username,file_number=fileNumber):
                 filesave = Savefile.objects.get(username=username,file_number=fileNumber)
                 filesave.file_content = fileContent
@@ -204,7 +237,58 @@ def saveFile(request):
         else:
             return JsonResponse({'success':False,'reason':'Please get membership first and try again!'})
 
-    if request.GET.get('update-file') == 'true':
-        pass
+    if request.GET.get('new-file') == 'true':
+        try:
+            member = Membership.objects.get(username=infoDist['username'])
+            memberFileList =  list(Savefile.objects.values_list('file_number').filter(username=infoDist['username']))
+            finalFileList = [1]
+            for i in memberFileList:
+                finalFileList.append(i[0])
+
+            finalFileList = list(set(finalFileList))
+            finalFileList.sort()
+            setFileNumber = finalFileList[-1]+1
+
+            for i in range(1,len(finalFileList)):
+                if i not in finalFileList:
+                    setFileNumber = i
+                    break
+            
+            if int(planDetails['plan_name']) == 49:
+                member.old_file_number = setFileNumber
+                member.total_file_remaining = PLAN_A - Savefile.objects.filter(username=infoDist['username']).count()
+            elif int(planDetails['plan_name']) == 99:
+                member.old_file_number = setFileNumber
+                member.total_file_remaining = PLAN_B - Savefile.objects.filter(username=infoDist['username']).count()
+            else:
+                member.old_file_number = setFileNumber
+                member.total_file_remaining = PLAN_C - Savefile.objects.filter(username=infoDist['username']).count()
+
+            member.save()
+            filesave = Savefile(username = infoDist['username'],file_number = member.old_file_number,file_content='')
+            filesave.save()
+
+            return JsonResponse({'success':True,'reason':f'Create new file file number is {member.old_file_number}','fileNumber':setFileNumber})
+        
+        except Exception as e:
+            print(e)
+            return JsonResponse({'success':False,'reason':'Internal server error'})
+    if request.GET.get('upload-file') == 'true':
+         if int(planDetails['upload_file']) > 0:
+             file = Membership.objects.get(username=infoDist['username']) 
+             file.upload_file = int(file.upload_file) - 1
+             file.save()
+             return JsonResponse({'success':True,'reason':'File upload successfully'}) 
+         else:
+             return JsonResponse({'success':False,'reason':'Your file limit is expire!'})
     
-    return JsonResponse({'ram':'ram'})
+    if request.GET.get('download-file') == 'true':
+         if int(planDetails['download_file']) > 0:
+             file = Membership.objects.get(username=infoDist['username']) 
+             file.download_file = int(file.download_file) - 1
+             file.save()
+             return JsonResponse({'success':True,'reason':'File download successfully'}) 
+         else:
+             return JsonResponse({'success':False,'reason':'Your file limit is expire!'})
+    
+    return JsonResponse({'success':True})

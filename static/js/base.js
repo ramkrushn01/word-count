@@ -1,20 +1,34 @@
+var isDoggle = false;
+
 async function focusNavTitle() {
     let pageEndPoint = await document.URL.split("/")[3];
-    let aList = await document.getElementsByTagName("a");
+    // pageEndPoint = element.innerText.toLowerCase().replace(" ", "")
+    console.log(pageEndPoint)
 
-    for (let i = 0; i < aList.length; i++) {
-        let element = aList[i];
-        if (pageEndPoint === "") {
-            document.getElementById("home").classList.add("active");
+    switch (pageEndPoint) {
+        case '':
+            homeId.classList.add("active");
             break;
-        } else if (
-            pageEndPoint == element.innerText.toLowerCase().replace(" ", "")
-        ) {
-            element.classList.add("active");
+        case 'membership':
+            membershipId.classList.add("active");
             break;
-        } else if (pageEndPoint == "contact") {
-            contact.classList.add("active");
-        }
+        case 'contact':
+            contactId.classList.add("active");
+            break;
+        case 'about':
+            aboutId.classList.add("active");
+            break;
+        case 'history':
+            historyId.classList.add("active");
+        case 'login':
+            loginId.classList.add("active");
+            break;
+        case 'signup':
+            signupId.classList.add("active");
+            break;
+        default:
+            homeId.classList.add("active");
+            break;
     }
 }
 
@@ -57,3 +71,19 @@ var timeIn = setInterval(() => {
     }
     clearInterval(timeIn);
 }, 4000);
+
+function showNavBar(e){
+    // if(document.body.offsetWidth > 800){
+        // return
+    // }
+    
+    let navbar = document.getElementById("navbar");
+    let bar = document.getElementById("bar");
+    if (navbar.style.display === "flex") {
+        navbar.style.display = "none";
+        bar.innerHTML = "&#8801;";
+    } else {
+        navbar.style.display = "flex";
+        bar.innerHTML = "&#10007;";
+    }
+};

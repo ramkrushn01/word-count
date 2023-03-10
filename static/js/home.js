@@ -5,7 +5,16 @@ var changeMainTextImg = false;
 var changeMainTextCase = false;
 
 // for getting old text
-mainText.value = localStorage.getItem("mainText");
+
+if (!mainText.value) {
+    mainText.value = localStorage.getItem("mainText");
+}
+
+async function getRequest(url) {
+    let req = await fetch(url);
+    let res = await req.json();
+    return res;
+}
 
 function getWithoutSpace(str) {
     var ans = 0;
@@ -115,37 +124,47 @@ function typeStart(event) {
 }
 
 // for download text
-function downloadFile(ee) {
-    let a = document.createElement("a");
-    document.body.appendChild(a);
-    a.style = "display:none";
+async function downloadFile(ee) {
+    let res = await getRequest(`/savefile?download-file=true`);
+    if (res.success) {
+        let a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display:none";
 
-    let fromBlob = new Blob([mainText.value], { type: "text/plain" });
-    let downUrl = window.URL.createObjectURL(fromBlob);
-    a.href = downUrl;
-    a.download = "wordCount.txt";
-    a.click();
-    window.URL.revokeObjectURL(downUrl);
+        let fromBlob = new Blob([mainText.value], { type: "text/plain" });
+        let downUrl = window.URL.createObjectURL(fromBlob);
+        a.href = downUrl;
+        a.download = "wordCount.txt";
+        a.click();
+        window.URL.revokeObjectURL(downUrl);
+    } else {
+        showNotiMessage("error", res.reason);
+    }
 }
 
 // for text file upload
-function uploadFile(ee) {
-    let inp = document.createElement("input");
-    inp.type = "file";
-    inp.accept = "text/plain";
-    inp.style = "display:none";
-    inp.onchange = () => {
-        file = inp.files[0];
-        if (file) {
-            let reader = new FileReader();
-            reader.readAsText(file, "UTF-8");
-            reader.onload = (evt) => {
-                mainText.value = evt.target.result;
-                typeStart(0);
-            };
-        }
-    };
-    inp.click();
+async function uploadFile(ee) {
+    let res = await getRequest(`/savefile?upload-file=true`);
+    if (res.success) {
+        let inp = document.createElement("input");
+        inp.type = "file";
+        inp.accept = "text/plain";
+        inp.style = "display:none";
+        inp.onchange = () => {
+            file = inp.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = (evt) => {
+                    mainText.value = evt.target.result;
+                    typeStart(0);
+                };
+            }
+        };
+        inp.click();
+    } else {
+        showNotiMessage("error", res.reason);
+    }
 }
 
 // for file save
@@ -157,27 +176,30 @@ async function saveFile(ee) {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fileData: mainText.value,fileNumber:parseInt(fileNumber.value)}),
+        body: JSON.stringify({
+            fileData: mainText.value,
+            fileNumber: parseInt(fileNumber.value),
+        }),
     });
     let res = await req.json();
     if (res.success) {
-        showNotiMessage("success", res.reason);
+        showNotiMessage("success", res.reason + ' File number: ' + res.file_number);
         fileNumber.value = res.file_number;
     } else {
         showNotiMessage("error", res.reason);
     }
 }
 
-async function newFile(ee){
-    let req = await fetch(`/savefile?update-file=true&&current-file=${parseInt(fileNumber.value)}`)
-    // let req = await fetch(`/savefile`)
-    let res = await req.json();
-    console.log(res)
-    if(res.success){
-        showNotiMessage('success',res.reason);
+async function newFile(ee) {
+    res = await getRequest(
+        `/savefile?new-file=true&&current-file=${parseInt(fileNumber.value)}`
+    );
+    if (res.success) {
+        showNotiMessage("success", res.reason);
         fileNumber.value = res.fileNumber;
-    }else{
-        showNotiMessage('error',res.reason)
+    } else {
+        showNotiMessage("error", res.reason);
     }
 }
+
 typeStart(0);
