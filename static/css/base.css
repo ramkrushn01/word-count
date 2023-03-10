@@ -170,7 +170,7 @@ nav {
 }
 
 .title {
-    display: flex;
+    display: none;
     color: white;
     margin-right: 20px;
     /* width: 100%; */
@@ -311,6 +311,9 @@ a:hover {
 }
 
 @media screen and (max-width: 800px) {
+    .temp{
+        height: 70px;
+    }
     nav {
         display: block;
         height: fit-content;
@@ -318,6 +321,7 @@ a:hover {
     }
 
     .title {
+        display: flex;
         margin: 0;
         padding: 0;
     }
@@ -355,5 +359,47 @@ a:hover {
         margin-top: 10px;
         width: fit-content;
         height: fit-content;
+    }
+
+    
+    .container {
+        width: 97vw;
+    }
+
+    .mainMember {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .div-1 {
+        width: 85% !important;
+    }
+
+    .icon-10 {
+        width: 15px;
+        height: 15px;
+    }
+
+    .wordAction {
+        background-color: black;
+        font-size: small;
+        justify-content: space-between !important;
+    }
+
+    .wordAction span {
+        /* border: 1px solid black; */
+        border-radius: 2px;
+    }
+
+    .wordSocial {
+        justify-content: space-between !important;
+    }
+
+    .loginDiv {
+        width: 100% !important;
+    }
+
+    .loginIcon {
+        margin-bottom: 20px !important;
     }
 }

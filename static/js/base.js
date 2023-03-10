@@ -3,7 +3,6 @@ var isDoggle = false;
 async function focusNavTitle() {
     let pageEndPoint = await document.URL.split("/")[3];
     // pageEndPoint = element.innerText.toLowerCase().replace(" ", "")
-    console.log(pageEndPoint)
 
     switch (pageEndPoint) {
         case '':
