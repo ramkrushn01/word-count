@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'wordapp.apps.WordappConfig',
+    'adminpanel.apps.AdminpanelConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

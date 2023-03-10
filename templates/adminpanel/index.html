@@ -1,0 +1,76 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/adminpanel/index.css'%}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Panel</title>
+</head>
+<body>
+    <div class="container">
+        <div class="tables">
+            <h2 class="textCen">Tables</h2>
+            <ul>
+                {% for item in tableNames %}
+                    <li> <a href="/adminpanel?table={{item}}"> {{item}} </a>
+                        <a class="add" href="/adminpanel?tablename={{item}}&&add=true">+Add</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if edit %}
+        <form class="table-form" action="/adminpanel" method='POST'>
+            <input type="hidden" name="TableName" value="{{formTableName}}">
+            {% if add %}
+                <input type="hidden" name="add" value="True">
+            {% endif %}
+            {% csrf_token %}
+            <table>
+            {% for key,values in qValues.items %}
+                <tr>
+                    {% if values.1 == 'textarea' %}
+                    <td> <label for="{{key}}">{{key}}</label> </td>
+                    <td> <textarea name="{{key}}" id="{{key}}" cols="30" rows="10">{{values.0}}</textarea> </td>
+                    {% else %}
+                        <td> <label for="{{key}}">{{key}}</label> </td>
+                        <td> <input type="{{values.1}}" name="{{key}}" id="{{key}}" value="{{values.0}}"><br> </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </table>
+            <button class="btn-dark">Save</button>
+        </form>
+
+
+        {% else %}
+        
+        <div class="table-values">
+            <h2 class="textCen">Table Values</h2>
+            <table>
+                <thead>
+                    <tr>
+                        {% for item in tableKeys %}
+                        <th>{{item}}</th>
+                        {% endfor %}
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                {% for item in tableValues %}
+                <tr>    
+                    {% for key,value in item.items %}
+                        <td>{{value|slice:':20'}}</td>
+                        {% endfor %}
+                        <td><a href="/adminpanel?tablename={{tablename}}&&edit={{item.id}}">Edit</a></td>
+                        <td><a href="/adminpanel?tablename={{tablename}}&&delete={{item.id}}">Delete</a></td>
+                    </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/adminpanel/login.css'%}">
+    <link rel="stylesheet" href="{% static 'css/base.css'%}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Panel</title>
+</head>
+<body>
+    <div class="container login-container">
+        <form class="loginDiv mary-2" action="/adminpanel/loginU" method="POST">
+            {% csrf_token %}
+            <span class="loginIcon">
+                <img class="icon-12" src="{% static 'icon/login.svg' %}" alt="login-icon">
+                <h3>Login</h3>
+            </span>
+    
+            <hr class="hr-normal mary-1">
+    
+            {% comment %} <form action="/login"> {% endcomment %}
+                <label for="username">Enter your email:</label><br>
+                <input type="text" id="email" name="username" placeholder="Enter your email" required autofocus><br>
+    
+                <label for="passw">Enter your password</label><br>
+                <input type="password" id="passw" name="password" placeholder="Enter your password" required><br>
+    
+                <p><a href="/forgotpassword">forgot password?</a></p><br>
+                {% if fail %}
+                <p>Please enter corrent password</p><br>
+                {% endif %}
+    
+                <button class="btn-primary bdrround">Login</button>
+            {% comment %} </form> {% endcomment %}
+    
+        </form>
+    </div>
+</body>
+</html>

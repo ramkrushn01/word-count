@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --bg-1:#ADD8E6;
+    --bg-2:#8AECFF;
+}
+body{
+    background: rgba(0, 0, 0, 0.05);
+}
+
+
+.btn-primary,
+.btn-sec,
+.btn-info,
+.btn-danger,
+.btn-dark {
+    padding: 10px;
+    padding-inline: 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 255, 0.436);
+    color: white;
+    cursor: pointer;
+}
+
+.btn-sec {
+    background: #28a745 !important;
+}
+
+.btn-info {
+    background: #17a2b8 !important;
+}
+
+.btn-danger {
+    background: #dc3545;
+}
+
+.btn-dark {
+    background: #343a40;
+}
+
+
+.textCen{
+    text-align: center !important;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: ; */
+    width: 100vw;
+    height: 100vh;
+}
+
+.tables{
+    border: 1px solid black;
+    width: fit-content;
+    /* padding-inline: 20px; */
+}
+
+.tables li{
+    min-width: 200px;
+    /* list-style-type: none; */
+    padding-inline: 5px;
+    padding-block: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 2px;
+    background: var(--bg-2);
+}
+
+.tables ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tables .add{
+    float: right;
+    color: black;
+}
+
+.tables a{
+    text-decoration: none;
+    color: white;
+}
+
+.table-values{
+    width: 100%;
+}
+
+.table-values table{
+    width: 100%;
+}
+.table-values table tr:nth-child(even){
+    background-color: var(--bg-1);
+}
+
+.table-values table th,.table-values table tr{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table-values table tr:hover{
+    background: rgba(0, 0, 0, 0.1);
+    /* color:white; */
+}
+
+.table-values table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--bg-1);
+    color: white;
+}
+
+.table-values table td{
+    padding: 20px;
+}
+
+.table-values a{
+    text-decoration: none;
+}
+
+.table-form{
+    width: 100%;
+    margin: 20px;
+}
+.table-form table{
+    width: 100%;
+}
+
+.table-form table *{
+    margin-top: 10px;
+}
+
+.table-form input{
+    width: 300px;
+    height: 30px;
+}
+
+.table-form button{
+    margin: 10px;
+    float:center;
+}
