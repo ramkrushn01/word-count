@@ -79,12 +79,12 @@ body{
 
 .tables .add{
     float: right;
-    color: black;
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .tables a{
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .table-values{
@@ -93,6 +93,7 @@ body{
 
 .table-values table{
     width: 100%;
+    border-collapse: collapse;
 }
 .table-values table tr:nth-child(even){
     background-color: var(--bg-1);
@@ -114,10 +115,13 @@ body{
     text-align: left;
     background-color: var(--bg-1);
     color: white;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
 }
 
 .table-values table td{
     padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .table-values a{
@@ -144,4 +148,26 @@ body{
 .table-form button{
     margin: 10px;
     float:center;
+}
+
+.logout{
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background:black ;
+    color: white;
+    padding: 10px;
+    box-shadow: 1px 1px 10px black;
+    /* text-transform: uppercase; */
+}
+
+.logout a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.621);
+    margin-left: 10px;
+}
+
+.logout a:hover{
+    color: white;
 }

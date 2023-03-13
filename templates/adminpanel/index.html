@@ -8,6 +8,11 @@
     <title>Admin-Panel</title>
 </head>
 <body>
+    <div class="logout">
+        <p>{{username}}</p>
+        <a href="/" target="_blank">| View site |</a>
+        <a href="logoutU">Log out </a>
+    </div>
     <div class="container">
         <div class="tables">
             <h2 class="textCen">Tables</h2>
@@ -21,7 +26,7 @@
         </div>
 
         {% if edit %}
-        <form class="table-form" action="/adminpanel" method='POST'>
+        <form class="table-form" action="/adminpanel/" method='POST'>
             <input type="hidden" name="TableName" value="{{formTableName}}">
             {% if add %}
                 <input type="hidden" name="add" value="True">
@@ -35,7 +40,7 @@
                     <td> <textarea name="{{key}}" id="{{key}}" cols="30" rows="10">{{values.0}}</textarea> </td>
                     {% else %}
                         <td> <label for="{{key}}">{{key}}</label> </td>
-                        <td> <input type="{{values.1}}" name="{{key}}" id="{{key}}" value="{{values.0}}"><br> </td>
+                        <td> <input type="{{values.1}}" name="{{key}}" id="{{key}}" value="{{values.0}}" required><br> </td>
                     {% endif %}
                 </tr>
             {% endfor %}

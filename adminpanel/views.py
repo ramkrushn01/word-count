@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.apps import apps
 from django.contrib.auth import authenticate,login,logout
 from wordapp.models import *
@@ -46,13 +46,14 @@ def index(request):
     info['tableNames'] = [i.__name__ for i in list(
         apps.get_app_config('wordapp').get_models())]
     info['tableNames'].insert(0,('User'))
+    info['username'] = userIsKnown(request)['username']
     if request.GET.get('table'):
         table_name = request.GET.get('table')
         info['tableValues'] = modelDist.get(table_name).objects.values()
         try:
             info['tableKeys'] = info['tableValues'][0].keys
         except Exception as ee:
-            pass
+            print(ee)
         info['tablename'] = table_name
 
     if request.GET.get('tablename'):
@@ -68,37 +69,45 @@ def index(request):
                      for i in modelDist.get(tableName)._meta.fields]
             qFinal = dict()
             i = 0
-            for key,values in dict(qValues[0]).items():
-                if key == 'time':
-                    qFinal[key] = [values.strftime("%H:%M"),qType[i]]
-                elif key == 'date':
-                    qFinal[key] = [values.strftime("%Y-%m-%d"),qType[i]]
-                else:
-                    qFinal[key] = [values,qType[i]]
-                i+=1
+            try:
+                for key,values in dict(qValues[0]).items():
+                    print(key)
+                    if qType[i] == 'time':
+                        qFinal[key] = [values.strftime("%H:%M"),qType[i]]
+                    elif qType[i] == 'date':
+                        qFinal[key] = [values.strftime("%Y-%m-%d"),qType[i]]
+                    else:
+                        qFinal[key] = [values,qType[i]]
+                    i+=1
 
-            info['qValues'] = qFinal
-            info['edit'] = True
-            info['formTableName'] = tableName
+                info['qValues'] = qFinal
+                info['edit'] = True
+                info['formTableName'] = tableName
+            except Exception as ee:
+                print(ee)
+
         elif request.GET.get('add'):
             qValues = modelDist.get(tableName).objects.values()
             qType = [fieldDist.get(i.get_internal_type())
                      for i in modelDist.get(tableName)._meta.fields]
             qFinal = dict()
             i = 0
-            for key,values in dict(qValues[0]).items():
-                if key == 'time':
-                    qFinal[key] = ['',qType[i]]
-                elif key == 'date':
-                    qFinal[key] = ['',qType[i]]
-                else:
-                    qFinal[key] = ['',qType[i]]
-                i+=1
+            try:
+                for key,values in dict(qValues[0]).items():
+                    if key == 'time':
+                        qFinal[key] = ['',qType[i]]
+                    elif key == 'date':
+                        qFinal[key] = ['',qType[i]]
+                    else:
+                        qFinal[key] = ['',qType[i]]
+                    i+=1
 
-            info['qValues'] = qFinal
-            info['edit'] = True
-            info['add'] = True
-            info['formTableName'] = tableName
+                info['qValues'] = qFinal
+                info['edit'] = True
+                info['add'] = True
+                info['formTableName'] = tableName
+            except Exception as ee:
+                print(ee)
 
     return render(request, 'adminpanel/index.html', info)
 
@@ -109,7 +118,7 @@ def loginUser(request):
     info = dict()
     if request.method == "POST":
         if userIsKnown(request)['user']:
-            return redirect('/')
+            return redirect('/adminpanel')
         
         try:
             username = request.POST.get("username")
@@ -126,6 +135,7 @@ def loginUser(request):
     return render(request,'adminpanel/login.html',info)
 
 
+@login_required(login_url='/adminpanel/loginU')
 def logoutUser(request):
-    loginUser(request)
-    redirect('loginU')
+    logout(request)
+    return redirect('/adminpanel/loginU')

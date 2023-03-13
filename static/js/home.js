@@ -26,6 +26,22 @@ function getWithoutSpace(str) {
     return ans;
 }
 
+function getParagraph(str){
+    if(str == '')return 0;
+    
+    str = str.split('\n');
+    res = 0
+    for(let i=0;i<str.length;i++){
+        if(str[i] != ''){
+            res+=1;
+        }
+    }
+
+    return res
+}
+
+
+
 // for title case
 function toTitleCase(str) {
     str = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -96,15 +112,17 @@ function setCase(ee) {
 // change the word char
 function typeStart(event) {
     if (event.keyCode !== 32) {
-        totalWord.innerText = mainText.value.split(" ").length;
+        totalWord.innerText = mainText.value.replace(/\s+/g,' ').trim().split(" ").length;
     }
     if (mainText.value.length === 0) {
         totalWord.innerText = 0;
     }
 
+    // totalWord.innerText = getTotalWord(mainText.value)
     totalCharIs = mainText.value.length;
     totalChar.innerText = totalCharIs;
     withOutSpace.innerText = getWithoutSpace(mainText.value);
+    Panragraph.innerText = getParagraph(mainText.value);
 
     // for social
     googleId.innerText = 300 - totalCharIs;

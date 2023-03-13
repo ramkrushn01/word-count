@@ -112,6 +112,7 @@ def textHistory(request):
     if request.GET.get('delete'):
         try:
             Savefile.objects.get(username=infoDist['username'],file_number=request.GET.get('delete')).delete()
+            Membership.objects.filter(username=infoDist['username']).update(total_file_remaining=int(infoDist['total_file_remaining']) + 1)
             messages.success(request,'Delete data successfully!')
         except Exception as ee:
             print(ee)
@@ -239,6 +240,9 @@ def saveFile(request):
 
     if request.GET.get('new-file') == 'true':
         try:
+            if planDetails['total_file_remaining'] < 1:
+                return JsonResponse({'success':False,'reason':f'File limit exceeded! Please delete some file and try again!'})
+
             member = Membership.objects.get(username=infoDist['username'])
             memberFileList =  list(Savefile.objects.values_list('file_number').filter(username=infoDist['username']))
             finalFileList = [1]

@@ -25,7 +25,7 @@ class Savefile(models.Model):
         return self.username + ' | ' + str(self.file_number)
 
 class Membership(models.Model):
-    username = models.CharField(max_length=30,default=None,unique=True,primary_key=True)
+    username = models.CharField(max_length=30,default=None)
     plan_name = models.CharField(max_length=30,default=None)
     total_file_remaining = models.IntegerField(default=0)
     download_file = models.IntegerField(default=1)
