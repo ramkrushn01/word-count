@@ -17,3 +17,14 @@ Welcome to WordCount website
 </code>
 
 <p>According to your local setup</p>
+
+<p>for use of default sqlite database change database settings in your project directory settings.py <b>DATABASE</b></b></p>
+
+<code> 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+</code>
