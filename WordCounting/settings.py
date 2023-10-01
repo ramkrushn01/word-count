@@ -146,3 +146,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # for storing messages
+# for git push for deploy on render.
+# git push --set-upstream origin deployOnRender
