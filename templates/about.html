@@ -1,18 +1,112 @@
-{% extends 'base.html' %}
-{% load static %}
- {% block title %}About{% endblock title %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}About{% endblock title %} 
 {% block css_block %}
- <link rel="stylesheet" href=" {% static 'css/about.css' %} "> 
- {% endblock css_block %}
-
-{% block body %}
+<link rel="stylesheet" href=" {% static 'css/about.css' %} " />
+{% endblock css_block %}
+ {% block body %}
 <div class="container min-h-100">
     <div class="mainAbout">
-        <h1>About</h1>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur velit porro distinctio dolorem natus ipsam, quo accusamus ea consequuntur accusantium illum vel incidunt provident inventore sequi odio autem quaerat vero rerum nesciunt iusto eligendi obcaecati totam. Tempora dignissimos voluptatibus minus, deleniti dolor, cum, dolores dicta velit dolore recusandae in id cumque quae doloribus accusantium tenetur veniam tempore iste quibusdam eaque labore repellendus amet quos. Officia necessitatibus tempore commodi enim, atque magnam? Laboriosam dolorum esse vero, quas eos autem eaque possimus aspernatur atque qui aliquid voluptatibus dolore voluptatem deserunt, ipsa inventore impedit ullam asperiores nulla quis modi! Cumque sit quod delectus velit reprehenderit repellat veritatis labore blanditiis debitis beatae sunt, eius amet nisi? Quis qui voluptates quam labore porro, veniam at tenetur magnam quaerat laudantium. Quaerat ipsam minus vel tenetur culpa facere pariatur quasi facilis placeat omnis odio cum quam, adipisci sunt cumque veniam quisquam sequi aperiam minima eaque? Vero, labore! At natus adipisci inventore amet fugit eaque dolorum consequuntur odio commodi fugiat? A, eius quo. Laudantium obcaecati suscipit, vero perferendis rerum alias similique. Cumque, voluptas distinctio ab dicta doloribus eaque earum officiis nam, quaerat voluptatibus dolores sint at ad aliquid deleniti quos laudantium iusto corporis placeat nisi eveniet! Nihil, nobis.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia ex reiciendis voluptatibus similique pariatur, commodi eius non itaque animi quis nulla asperiores ipsum in! Ratione dolorum fugit earum repellat? Placeat perferendis debitis doloribus minima inventore expedita hic distinctio sed molestias ipsa alias nobis delectus sapiente amet exercitationem eos praesentium dignissimos laborum suscipit eligendi, facilis itaque eaque! Maiores illo culpa rem nobis harum quaerat odio eveniet fugit velit magni. Quia voluptatum doloribus animi eveniet labore eaque, reiciendis eos cum porro perferendis eligendi dolorum atque, similique incidunt adipisci alias culpa quibusdam voluptate! Voluptate, consectetur autem! Vero maiores ad earum autem asperiores sunt tempore temporibus laudantium iste minus amet ratione voluptas inventore magnam labore vel velit voluptatibus, mollitia ipsa. Assumenda aliquam voluptate minima. Cupiditate eum, explicabo eius dolores aperiam dolorem ratione corporis doloribus, veritatis recusandae unde eaque maiores sequi provident reiciendis dignissimos asperiores rem, officia vero minus aut. Consectetur numquam nobis temporibus voluptatibus dolorem assumenda error eum qui debitis ex alias repudiandae quisquam quas hic porro iure, voluptas maiores quos ducimus veritatis sequi sunt velit minus consequatur. Et libero minus corrupti fugit, quibusdam delectus, asperiores repellendus ipsa porro odio repudiandae, eos animi tenetur ratione vel magni voluptas. Possimus necessitatibus unde eaque magni exercitationem.</p>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim deleniti cupiditate dolorum unde ipsum repellat eum incidunt perferendis eveniet, temporibus itaque earum asperiores numquam molestiae, dolore corporis, officia accusantium! Quod magnam officiis optio neque ipsam facere perferendis molestiae consequuntur error dolorem, corrupti possimus laborum et voluptate fugiat provident laboriosam ducimus?</p>
+        <header>
+            <h1>About Us</h1>
+        </header>
+
+        <section>
+            <h2>
+                Welcome to WordCount Pro - Your Ultimate Word Analysis
+                Companion!
+            </h2>
+            <p>
+                At WordCount Pro, we are passionate about words and dedicated to
+                making your writing experience smoother and more insightful. Our
+                app is designed with one goal in mind: to provide you with
+                accurate and efficient word and character counting tools, as
+                well as a host of other essential features for writers and
+                content creators.
+            </p>
+        </section>
+
+        <section>
+            <h2>Our Mission</h2>
+            <p>
+                Our mission is to empower writers, students, professionals, and
+                anyone who works with words to enhance their productivity and
+                efficiency. We believe that words are the building blocks of
+                effective communication, and understanding them is key to
+                successful writing.
+            </p>
+        </section>
+
+        <section>
+            <h2>Key Features</h2>
+            <ul>
+                <li>
+                    <strong>Total Character Count:</strong> Get an accurate
+                    count of characters in your text, including spaces and
+                    special characters, to ensure you meet character limits.
+                </li>
+                <li>
+                    <strong>Total Word Count (Excluding Whitespaces):</strong>
+                    Count words without the interference of whitespaces,
+                    allowing you to gauge the true content of your text.
+                </li>
+                <li>
+                    <strong>Total Word Count:</strong> Count all words in your
+                    text, regardless of spaces, for a comprehensive view of your
+                    document's size.
+                </li>
+                <li>
+                    <strong>Total Paragraphs:</strong> Quickly identify the
+                    number of paragraphs in your text, making it easier to
+                    format and structure your content.
+                </li>
+                <li>
+                    <strong>Text File Saving:</strong> Save your valuable text
+                    files with ease, so you can access and edit them whenever
+                    you need.
+                </li>
+                <li>
+                    <strong>Upload File Feature:</strong> Easily upload text
+                    files to our platform for quick analysis and word counting.
+                </li>
+                <li>
+                    <strong>Membership Options:</strong> Unlock even more
+                    advanced features and benefits by becoming a WordCount Pro
+                    member. Our membership plans offer exclusive tools and
+                    premium support to take your writing to the next level.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Our Commitment</h2>
+            <p>
+                We are committed to providing you with a reliable,
+                user-friendly, and feature-rich platform that simplifies the
+                word counting process. Our team of dedicated professionals is
+                constantly working to improve WordCount Pro, ensuring it meets
+                the evolving needs of writers and content creators like you.
+            </p>
+        </section>
+
+        <section>
+            <h2>Join Us Today!</h2>
+            <p>
+                Whether you're a student working on an essay, a professional
+                crafting an important report, or a writer polishing your
+                masterpiece, WordCount Pro is here to assist you every step of
+                the way. Join us today and experience the power of precision in
+                word counting and document analysis.
+            </p>
+        </section>
+        <hr />
+        <footer>
+            <p>
+                Thank you for choosing WordCount Pro as your word analysis
+                companion. We look forward to being a valuable part of your
+                writing journey.
+            </p>
+        </footer>
     </div>
 </div>
 {% endblock body %}
-
